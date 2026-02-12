@@ -3,8 +3,10 @@ function openLetter() {
     const flap = document.getElementById('flap');
     const letter = document.getElementById('letter');
     
+    // Abre el sobre
     flap.style.transform = "rotateX(180deg)";
     
+    // Espera un poco y saca la carta hacia arriba
     setTimeout(() => {
         letter.classList.remove('letter-closed');
         letter.classList.add('letter-open');
@@ -69,7 +71,8 @@ function bloomRose() {
     // MOSTRAR SOLO EL INPUT (Paso A)
     setTimeout(() => {
         finalContainer.style.display = 'block';
-        // Aseguramos que el resultado siga oculto por si acaso
+        // Aseguramos que el resultado siga oculto
+        document.getElementById('input-step').style.display = 'block';
         document.getElementById('result-step').style.display = 'none';
     }, 2000);
 }
