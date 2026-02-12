@@ -1,72 +1,81 @@
-// corazones más suaves
-function createHeart(){
-    const heart=document.createElement("div");
+/* Lluvia de Corazones */
+function createHeart() {
+    const heart = document.createElement("div");
     heart.classList.add("heart");
-    heart.innerHTML="💖";
-    heart.style.left=Math.random()*100+"vw";
-    heart.style.animationDuration=(Math.random()*4+4)+"s";
-    heart.style.fontSize=(Math.random()*25+15)+"px";
+    heart.innerHTML = Math.random() < 0.5 ? "💖" : "🌸"; // Mezcla corazones y flores
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
     document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),8000);
+    setTimeout(() => heart.remove(), 5000);
 }
-setInterval(createHeart,400);
+setInterval(createHeart, 400);
 
-// mover NO
-function moveNo(){
-    const btn=document.getElementById("no");
-    btn.style.position="absolute";
-    btn.style.left=Math.random()*70+"%";
-    btn.style.top=Math.random()*70+"%";
-}
+/* Abrir carta */
+function openLetter() {
+    const flap = document.getElementById("flap");
+    const letter = document.getElementById("letter");
+    const envelope = document.getElementById("envelope");
 
-// magia mejorada
-function startMagic(){
-    document.getElementById("letter").classList.add("hidden");
-    document.getElementById("roseScene").classList.remove("hidden");
-
-    // florecer lentamente
-    setTimeout(()=>{
-        document.getElementById("petal1").setAttribute("r","40");
-    },2500);
-
-    setTimeout(()=>{
-        document.getElementById("petal2").setAttribute("r","35");
-        document.getElementById("petal3").setAttribute("r","35");
-    },3200);
-
-    setTimeout(()=>{
-        document.getElementById("petal4").setAttribute("r","28");
-        document.getElementById("petal5").setAttribute("r","28");
-    },3900);
-
-    // zorro camina
-    setTimeout(()=>{
-        document.getElementById("fox").style.left="38%";
-    },4200);
-
-    // quitar zorro después
-    setTimeout(()=>{
-        document.getElementById("fox").style.opacity="0";
-    },7000);
-
-    // mostrar firma
-    setTimeout(()=>{
-        document.getElementById("signBox").classList.remove("hidden");
-    },7200);
+    // Animación del sobre abriéndose
+    flap.style.transform = "rotateX(180deg)";
+    
+    // Esperar un poco y mostrar la carta encima
+    setTimeout(() => {
+        letter.style.display = "block";
+        // Ocultar texto de "tócame" para limpiar
+        document.getElementById("tapText").style.display = "none";
+    }, 400);
 }
 
-// final con firma real
-function finalScene(){
-    const name=document.getElementById("signature").value;
-    if(name===""){
-        alert("Pon tu nombre bonito primero 🥺💕");
-        return;
-    }
+/* Botón NO esquivo */
+function moveNo() {
+    const btn = document.getElementById("no");
+    // Límites para que no se salga mucho de la carta (ajustado al viewport)
+    const newX = Math.random() * (window.innerWidth - 100);
+    const newY = Math.random() * (window.innerHeight - 50);
+    
+    btn.style.position = "fixed";
+    btn.style.left = newX + "px";
+    btn.style.top = newY + "px";
+}
 
-    document.getElementById("signBox").classList.add("hidden");
-    document.getElementById("roseScene").classList.add("hidden");
-    document.getElementById("final").classList.remove("hidden");
+/* Aceptar amor */
+function acceptLove() {
+    const letter = document.getElementById("letter");
+    const envelope = document.getElementById("envelope");
+    const roseSection = document.getElementById("roseSection");
 
-    document.getElementById("accepted").innerHTML =
-    name + " ✨ & Christian Patricio<br><b>cita aceptada 💕</b>";
+    // Efecto de desaparecer la carta
+    letter.classList.add("burn");
+    
+    // Ocultar el sobre también suavemente
+    envelope.style.transition = "opacity 1s";
+    envelope.style.opacity = "0";
+
+    setTimeout(() => {
+        letter.style.display = "none";
+        envelope.style.display = "none"; // Eliminar sobre del flujo
+        roseSection.style.display = "block";
+
+        // Animar pétalos (florecer)
+        const petals = document.querySelectorAll(".petal");
+        petals.forEach((p, i) => {
+            setTimeout(() => {
+                p.style.transform = "scale(1)";
+            }, i * 200);
+        });
+
+        // Animar hojas
+        const leaves = document.querySelectorAll(".leaf");
+        leaves.forEach((l) => {
+            l.style.opacity = "1";
+        });
+
+        // Mostrar mensaje final
+        setTimeout(() => {
+            const finalDiv = document.getElementById("final");
+            finalDiv.style.opacity = "1";
+        }, 1500);
+
+    }, 1500);
 }
