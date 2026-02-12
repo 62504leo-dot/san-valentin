@@ -1,7 +1,7 @@
 body{
     margin:0;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(#ffb6d9,#ffe3f3);
+    font-family:'Segoe UI', sans-serif;
+    background:linear-gradient(#ffd6ec,#fff0f7);
     overflow:hidden;
     text-align:center;
 }
@@ -9,8 +9,7 @@ body{
 /* CORAZONES */
 .heart{
     position:fixed;
-    color:#ff4d88;
-    animation: fall linear infinite;
+    animation:fall linear infinite;
 }
 @keyframes fall{
     0%{transform:translateY(-10vh);}
@@ -18,76 +17,126 @@ body{
 }
 
 /* SOBRE */
-.envelope{
-    position:relative;
-    width:220px;
-    height:140px;
-    margin:200px auto;
+.envelope-container{
+    margin-top:200px;
     cursor:pointer;
 }
+
+.envelope{
+    width:220px;
+    height:140px;
+    margin:auto;
+    position:relative;
+}
+
+.body{
+    width:100%;
+    height:100%;
+    background:white;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.heart-icon{
+    font-size:40px;
+}
+
 .flap{
     position:absolute;
     width:0;
     height:0;
     border-left:110px solid transparent;
     border-right:110px solid transparent;
-    border-bottom:80px solid #ff4d88;
+    border-bottom:80px solid #ff8fcf;
     top:-80px;
-}
-.body{
-    width:100%;
-    height:100%;
-    background:white;
-    border-radius:10px;
+    transition:transform 1s;
+    transform-origin:bottom;
 }
 
-/* CARTAS */
-.letter{
+/* CARTA */
+.paper{
+    background:white;
+    padding:30px;
+    border-radius:20px;
     width:80%;
     max-width:500px;
     margin:auto;
     margin-top:50px;
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.2);
-    animation:fadeIn 1s;
+    box-shadow:0 15px 30px rgba(0,0,0,0.2);
+    animation:pop 0.8s ease;
 }
 
-.hidden{
-    display:none;
-}
-
-@keyframes fadeIn{
-    from{opacity:0; transform:scale(0.8);}
-    to{opacity:1; transform:scale(1);}
+@keyframes pop{
+    from{transform:scale(0.5); opacity:0;}
+    to{transform:scale(1); opacity:1;}
 }
 
 button{
     padding:10px 20px;
     border:none;
     border-radius:20px;
-    font-size:16px;
     margin:10px;
     cursor:pointer;
 }
 
 #yes{
-    background:#ff4d88;
+    background:#ff8fcf;
     color:white;
 }
 
 #no{
-    background:#444;
+    background:#555;
     color:white;
     position:relative;
 }
 
-/* EFECTO QUEMADO */
-.burn{
-    animation:burnEffect 2s forwards;
+/* ROSA */
+#rose{
+    width:200px;
+    margin-top:80px;
 }
-@keyframes burnEffect{
-    0%{opacity:1;}
-    100%{opacity:0; transform:rotate(720deg) scale(0.1);}
+
+.stem{
+    stroke-dasharray:200;
+    stroke-dashoffset:200;
+    animation:growStem 2s forwards;
+}
+
+@keyframes growStem{
+    to{stroke-dashoffset:0;}
+}
+
+#petal1, #petal2, #petal3{
+    transition:all 1s ease;
+}
+
+#fox{
+    font-size:60px;
+    position:absolute;
+    bottom:50px;
+    left:-100px;
+    transition:2s;
+}
+
+/* FIRMA */
+#signBox{
+    margin-top:50px;
+}
+
+#final img{
+    width:300px;
+    animation:float 3s ease-in-out infinite;
+    filter:drop-shadow(0 0 20px #ffc1e3);
+}
+
+@keyframes float{
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+    100%{transform:translateY(0);}
+}
+
+.hidden{
+    display:none;
 }

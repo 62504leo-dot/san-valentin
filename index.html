@@ -1,51 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <title>Para Mi Amor 💖</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<title>Nuestra Historia 💖</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<div id="hearts-container"></div>
+<div id="hearts"></div>
 
 <!-- SOBRE -->
-<div class="envelope" onclick="openLetter()">
-    <div class="flap"></div>
-    <div class="body"></div>
+<div class="envelope-container" onclick="openEnvelope()">
+    <div class="envelope">
+        <div class="flap"></div>
+        <div class="body">
+            <div class="heart-icon">💖</div>
+        </div>
+    </div>
+    <p class="click-text">Toca el sobre 💌</p>
 </div>
 
-<!-- CARTA PRINCIPAL -->
-<div class="letter hidden" id="letter">
-    <h2>Para mi niña hermosa 💕</h2>
-    <p>
-        Desde que llegaste a mi vida todo cambió.  
-        Eres mi felicidad diaria, mi paz y mi persona favorita.  
-        No quiero pasar ningún 14 de febrero sin ti…
-    </p>
+<!-- CARTA -->
+<div id="letter" class="hidden">
+    <div class="paper">
+        <h2>Para mi niña hermosa 🌸</h2>
+        <p>
+            Desde que llegaste a mi vida todo tiene más luz,
+            más risa y más magia.
+            Eres mi lugar favorito.
+        </p>
 
-    <h3>¿Quieres ser mi San Valentín? 💘</h3>
+        <h3>¿Quieres ser mi San Valentín? 💘</h3>
 
-    <div class="buttons">
-        <button id="yes" onclick="acceptLove()">Sí 💖</button>
-        <button id="no" onmouseover="moveNo()">No 😅</button>
+        <button id="yes" onclick="startMagic()">Sí 💕</button>
+        <button id="no" onmouseover="moveNo()">No 😜</button>
     </div>
 </div>
 
-<!-- CARTA FINAL -->
-<div class="letter hidden" id="finalLetter">
-    <h2>Contrato de Amor 💌</h2>
-    <p>Firma aquí para aceptar ser oficialmente tu san San Valentín:</p>
-    <input type="text" placeholder="Firma aquí..." id="signature">
-    <br><br>
-    <button onclick="confirmLove()">Confirmar 💍</button>
+<!-- ESCENA ROSA -->
+<div id="roseScene" class="hidden">
+
+<svg id="rose" viewBox="0 0 200 300">
+
+    <!-- Tallo -->
+    <line x1="100" y1="300" x2="100" y2="180"
+    stroke="#6ecf9f" stroke-width="8" class="stem"/>
+
+    <!-- Pétalos -->
+    <circle id="petal1" cx="100" cy="150" r="0" fill="#ff8fcf"/>
+    <circle id="petal2" cx="80" cy="150" r="0" fill="#ffc1e3"/>
+    <circle id="petal3" cx="120" cy="150" r="0" fill="#ffc1e3"/>
+
+</svg>
+
+<!-- ZORRITO -->
+<div id="fox">🦊</div>
+
 </div>
 
-<!-- MENSAJE FINAL -->
-<div id="finalMessage" class="hidden">
+<!-- FIRMA -->
+<div id="signBox" class="hidden">
+    <h2>Oye… ¿firmas aquí? 🥺💕</h2>
+    <input type="text" id="signature" placeholder="Escribe tu nombre bonito ✨">
+    <br><br>
+    <button onclick="finalScene()">Confirmar 💌</button>
+</div>
+
+<!-- FINAL -->
+<div id="final" class="hidden">
     <h1>TE AMO ❤️</h1>
-    <p>Gracias por hacerme el más feliz del mundo.</p>
-    <img src="img/cinnamoroll.png" width="250">
+    <img src="img/Cinnamoroll.webp">
+    <p id="accepted"></p>
 </div>
 
 <script src="script.js"></script>

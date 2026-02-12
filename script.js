@@ -1,50 +1,67 @@
-// Corazones cayendo
+// corazones kawaii
 function createHeart(){
-    const heart = document.createElement("div");
+    const heart=document.createElement("div");
     heart.classList.add("heart");
-    heart.innerHTML="❤️";
-    heart.style.left = Math.random()*100 + "vw";
-    heart.style.animationDuration = (Math.random()*3+2)+"s";
-    heart.style.fontSize = (Math.random()*20+15)+"px";
+    heart.innerHTML="💖";
+    heart.style.left=Math.random()*100+"vw";
+    heart.style.animationDuration=(Math.random()*3+3)+"s";
+    heart.style.fontSize=(Math.random()*20+15)+"px";
     document.body.appendChild(heart);
-
-    setTimeout(()=>heart.remove(),5000);
+    setTimeout(()=>heart.remove(),6000);
 }
 setInterval(createHeart,300);
 
-// Abrir carta
-function openLetter(){
-    document.querySelector(".envelope").style.display="none";
-    document.getElementById("letter").classList.remove("hidden");
+// abrir sobre
+function openEnvelope(){
+    document.querySelector(".flap").style.transform="rotateX(180deg)";
+    setTimeout(()=>{
+        document.querySelector(".envelope-container").classList.add("hidden");
+        document.getElementById("letter").classList.remove("hidden");
+    },1000);
 }
 
-// Mover botón NO
+// mover botón NO
 function moveNo(){
     const btn=document.getElementById("no");
     btn.style.position="absolute";
-    btn.style.left=Math.random()*70+"%";
-    btn.style.top=Math.random()*70+"%";
+    btn.style.left=Math.random()*80+"%";
+    btn.style.top=Math.random()*80+"%";
 }
 
-// Aceptar amor
-function acceptLove(){
-    const letter=document.getElementById("letter");
-    letter.classList.add("burn");
+// magia completa
+function startMagic(){
+    document.getElementById("letter").classList.add("hidden");
+    document.getElementById("roseScene").classList.remove("hidden");
 
+    // florecer pétalos
     setTimeout(()=>{
-        letter.classList.add("hidden");
-        document.getElementById("finalLetter").classList.remove("hidden");
+        document.getElementById("petal1").setAttribute("r","35");
+        document.getElementById("petal2").setAttribute("r","30");
+        document.getElementById("petal3").setAttribute("r","30");
     },2000);
+
+    // mover zorro
+    setTimeout(()=>{
+        document.getElementById("fox").style.left="40%";
+    },2500);
+
+    // mostrar firma
+    setTimeout(()=>{
+        document.getElementById("signBox").classList.remove("hidden");
+    },4500);
 }
 
-// Confirmar firma
-function confirmLove(){
+// final
+function finalScene(){
     const name=document.getElementById("signature").value;
     if(name===""){
-        alert("Tienes que firmar primero 😏");
+        alert("Pon tu nombre bonito primero 🥺💕");
         return;
     }
 
-    document.getElementById("finalLetter").classList.add("hidden");
-    document.getElementById("finalMessage").classList.remove("hidden");
+    document.getElementById("signBox").classList.add("hidden");
+    document.getElementById("final").classList.remove("hidden");
+
+    document.getElementById("accepted").innerHTML =
+    "Cinnamoroll ✨ & Christian Patricio<br><b>cita aceptada 💕</b>";
 }
