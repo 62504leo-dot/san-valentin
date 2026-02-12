@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Para Mi San Valentín 💖</title>
+<title>Mi San Valentín 💌</title>
 
 <style>
 body{
     margin:0;
     background:#ffd6e8;
-    font-family: 'Segoe UI', sans-serif;
+    font-family:'Segoe UI',sans-serif;
     text-align:center;
     overflow:hidden;
 }
@@ -18,33 +18,87 @@ body{
     position:fixed;
     top:-10px;
     font-size:20px;
-    animation: fall linear infinite;
+    animation:fall linear infinite;
 }
-
 @keyframes fall{
-    to{
-        transform:translateY(100vh);
-    }
+    to{ transform:translateY(100vh);}
 }
 
-/* Rosa */
-#rose{
-    margin-top:80px;
-    opacity:0;
-    transition:1.5s;
+/* SOBRE */
+#envelope{
+    width:300px;
+    height:200px;
+    background:#ff4da6;
+    margin:150px auto;
+    position:relative;
+    cursor:pointer;
+    border-radius:10px;
+}
+#flap{
+    width:0;
+    height:0;
+    border-left:150px solid transparent;
+    border-right:150px solid transparent;
+    border-bottom:100px solid #ff1a8c;
+    position:absolute;
+    top:-100px;
+    transition:1s;
+}
+#heartIcon{
+    font-size:40px;
+    margin-top:70px;
+}
+
+/* CARTA */
+#letter{
+    display:none;
+    margin-top:50px;
+    padding:20px;
+    background:white;
+    width:70%;
+    margin-left:auto;
+    margin-right:auto;
+    border-radius:15px;
+    transition:1s;
+}
+
+/* Botones */
+button{
+    padding:10px 20px;
+    margin:10px;
+    border:none;
+    border-radius:10px;
+    cursor:pointer;
+    font-size:16px;
+}
+#yes{ background:#ff4da6; color:white;}
+#no{ background:#999; }
+
+/* QUEMAR */
+.burn{
+    animation:burn 2s forwards;
+}
+@keyframes burn{
+    0%{opacity:1; transform:scale(1);}
+    100%{opacity:0; transform:scale(0.5) rotate(10deg);}
+}
+
+/* ROSA */
+#roseSection{
+    display:none;
+    margin-top:40px;
 }
 
 .petalo{
     transform:scale(0);
     transform-origin:center;
-    transition:1.5s ease;
+    transition:1s;
 }
 
-/* Mensaje final */
+/* FINAL */
 #final{
-    margin-top:40px;
-    opacity:0;
-    transition:2s;
+    display:none;
+    margin-top:30px;
 }
 
 #firma{
@@ -57,19 +111,35 @@ body{
 
 <body>
 
-<h1>TE AMO ❤️</h1>
+<!-- SOBRE -->
+<div id="envelope" onclick="openLetter()">
+    <div id="flap"></div>
+    <div id="heartIcon">❤️</div>
+</div>
 
-<!-- ROSA SVG BONITA -->
+<!-- CARTA -->
+<div id="letter">
+    <h2>Para mi niña hermosa 💖</h2>
+    <p>
+        Desde que llegaste a mi vida todo cambió.
+        Eres mi felicidad diaria, mi paz,
+        mi razón para sonreír.
+    </p>
+    <h3>¿Quieres ser mi San Valentín? 💘</h3>
+    <button id="yes" onclick="acceptLove()">Sí 💖</button>
+    <button id="no" onmouseover="moveNo()">No 😅</button>
+</div>
+
+<!-- ROSA -->
+<div id="roseSection">
+
 <svg id="rose" width="220" height="300" viewBox="0 0 200 300">
 
-  <!-- Tallo -->
   <line x1="100" y1="300" x2="100" y2="170"
         stroke="green" stroke-width="8"/>
 
-  <!-- Centro -->
   <circle cx="100" cy="140" r="15" fill="#ff007f"/>
 
-  <!-- Pétalos -->
   <circle class="petalo" cx="100" cy="90" r="40" fill="#ff4da6"/>
   <circle class="petalo" cx="150" cy="140" r="40" fill="#ff66b3"/>
   <circle class="petalo" cx="50" cy="140" r="40" fill="#ff66b3"/>
@@ -79,43 +149,68 @@ body{
 
 </svg>
 
+</div>
+
+<!-- FINAL -->
 <div id="final">
-    <h2>Gracias por aceptarme 💖</h2>
-    <div id="firma">Firmado: Christian Patricio ✍️</div>
+    <h1>TE AMO ❤️</h1>
+    <div id="firma">
+        Aceptado oficialmente por 💖<br>
+        Christian Patricio ✍️
+    </div>
     <br>
     <img src="cinnamoroll.webp" width="250">
 </div>
 
 <script>
 
-/* Corazones cayendo */
+/* Corazones */
 function createHeart(){
-    const heart = document.createElement("div");
+    const heart=document.createElement("div");
     heart.classList.add("heart");
     heart.innerHTML="💖";
     heart.style.left=Math.random()*100+"vw";
     heart.style.animationDuration=(Math.random()*3+2)+"s";
     document.body.appendChild(heart);
-
     setTimeout(()=>heart.remove(),5000);
 }
 setInterval(createHeart,300);
 
-/* Animación rosa */
-window.onload=()=>{
-    const rose=document.getElementById("rose");
-    rose.style.opacity="1";
+/* Abrir carta */
+function openLetter(){
+    document.getElementById("flap").style.transform="rotateX(180deg)";
+    document.getElementById("letter").style.display="block";
+}
 
-    const petalos=document.querySelectorAll(".petalo");
-    petalos.forEach((p,i)=>{
-        setTimeout(()=>{
-            p.style.transform="scale(1)";
-        }, i*300);
-    });
+/* Botón NO */
+function moveNo(){
+    const btn=document.getElementById("no");
+    btn.style.position="absolute";
+    btn.style.left=Math.random()*80+"%";
+    btn.style.top=Math.random()*80+"%";
+}
+
+/* Aceptar */
+function acceptLove(){
+    const letter=document.getElementById("letter");
+    letter.classList.add("burn");
 
     setTimeout(()=>{
-        document.getElementById("final").style.opacity="1";
-    },2500);
+        letter.style.display="none";
+        document.getElementById("roseSection").style.display="block";
+
+        const petalos=document.querySelectorAll(".petalo");
+        petalos.forEach((p,i)=>{
+            setTimeout(()=>{
+                p.style.transform="scale(1)";
+            }, i*300);
+        });
+
+        setTimeout(()=>{
+            document.getElementById("final").style.display="block";
+        },2500);
+
+    },2000);
 }
 
 </script>
