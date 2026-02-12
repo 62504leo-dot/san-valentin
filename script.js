@@ -1,81 +1,115 @@
-/* Lluvia de Corazones */
-function createHeart() {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = Math.random() < 0.5 ? "💖" : "🌸"; // Mezcla corazones y flores
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 5000);
-}
-setInterval(createHeart, 400);
-
-/* Abrir carta */
+/* 1. ABRIR CARTA */
 function openLetter() {
-    const flap = document.getElementById("flap");
-    const letter = document.getElementById("letter");
-    const envelope = document.getElementById("envelope");
-
-    // Animación del sobre abriéndose
+    const flap = document.getElementById('flap');
+    const letter = document.getElementById('letter');
+    
+    // Abre el sobre
     flap.style.transform = "rotateX(180deg)";
     
-    // Esperar un poco y mostrar la carta encima
+    // Saca la carta con un pequeño retraso
     setTimeout(() => {
-        letter.style.display = "block";
-        // Ocultar texto de "tócame" para limpiar
-        document.getElementById("tapText").style.display = "none";
+        letter.classList.remove('letter-closed');
+        letter.classList.add('letter-open');
     }, 400);
 }
 
-/* Botón NO esquivo */
+/* 2. BOTÓN "NO" SE ESCAPA */
 function moveNo() {
-    const btn = document.getElementById("no");
-    // Límites para que no se salga mucho de la carta (ajustado al viewport)
-    const newX = Math.random() * (window.innerWidth - 100);
-    const newY = Math.random() * (window.innerHeight - 50);
+    const btn = document.getElementById('no');
+    // Genera posición aleatoria dentro de la ventana
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 100);
     
-    btn.style.position = "fixed";
-    btn.style.left = newX + "px";
-    btn.style.top = newY + "px";
+    btn.style.position = 'fixed';
+    btn.style.left = x + 'px';
+    btn.style.top = y + 'px';
 }
 
-/* Aceptar amor */
+/* 3. ACEPTAR (SECUENCIA COMPLETA) */
 function acceptLove() {
-    const letter = document.getElementById("letter");
-    const envelope = document.getElementById("envelope");
-    const roseSection = document.getElementById("roseSection");
+    const letter = document.getElementById('letter');
+    const envelope = document.getElementById('envelope');
+    const garden = document.getElementById('garden-scene');
+    const fox = document.getElementById('fox');
+    const rose = document.getElementById('rose');
 
-    // Efecto de desaparecer la carta
-    letter.classList.add("burn");
+    // A. Incendiar carta
+    letter.classList.add('burning');
     
-    // Ocultar el sobre también suavemente
-    envelope.style.transition = "opacity 1s";
-    envelope.style.opacity = "0";
-
+    // Ocultar sobre suavemente
     setTimeout(() => {
-        letter.style.display = "none";
-        envelope.style.display = "none"; // Eliminar sobre del flujo
-        roseSection.style.display = "block";
+        envelope.style.opacity = '0';
+        letter.style.display = 'none';
+        envelope.style.display = 'none';
+        
+        // B. Mostrar jardín y Zorro
+        garden.style.display = 'block';
+        rose.style.opacity = '1'; // Mostrar la rosa (aún cerrada)
 
-        // Animar pétalos (florecer)
-        const petals = document.querySelectorAll(".petal");
-        petals.forEach((p, i) => {
-            setTimeout(() => {
-                p.style.transform = "scale(1)";
-            }, i * 200);
-        });
+        // C. Mover al zorro hacia el centro
+        // Calculamos el centro de la pantalla
+        const center = window.innerWidth / 2 - 40; // Ajuste por tamaño del emoji
+        fox.style.left = center + 'px';
 
-        // Animar hojas
-        const leaves = document.querySelectorAll(".leaf");
-        leaves.forEach((l) => {
-            l.style.opacity = "1";
-        });
-
-        // Mostrar mensaje final
+        // D. Esperar a que el zorro llegue (3 segundos) para florecer
         setTimeout(() => {
-            const finalDiv = document.getElementById("final");
-            finalDiv.style.opacity = "1";
-        }, 1500);
+            bloomRose();
+        }, 3000);
 
-    }, 1500);
+    }, 1500); // Tiempo que tarda en quemarse
+}
+
+/* 4. FLORECER ROSA */
+function bloomRose() {
+    const petals = document.querySelectorAll('.petal');
+    const leaves = document.querySelectorAll('.leaf');
+    const inputContainer = document.getElementById('final-container');
+
+    // Animación pétalos
+    petals.forEach((p, i) => {
+        setTimeout(() => {
+            p.style.transform = "scale(1)";
+        }, i * 300);
+    });
+
+    // Animación hojas
+    leaves.forEach(l => l.style.opacity = "1");
+
+    // E. Mostrar input para firmar
+    setTimeout(() => {
+        inputContainer.style.display = 'block';
+    }, 2000);
+}
+
+/* 5. FIRMAR Y MOSTRAR FINAL */
+function signContract() {
+    const nameInput = document.getElementById('herName').value;
+    const step1 = document.getElementById('input-step');
+    const step2 = document.getElementById('result-step');
+    const nameDisplay = document.getElementById('herNameDisplay');
+
+    if(nameInput.trim() === "") {
+        alert("¡Por favor firma el pacto! 💖");
+        return;
+    }
+
+    // Guardar nombre y cambiar pantalla
+    nameDisplay.innerText = nameInput;
+    step1.style.display = 'none';
+    step2.style.display = 'block';
+
+    // Lanzar confeti (opcional, simple con emojis)
+    launchConfetti();
+}
+
+function launchConfetti() {
+    for(let i=0; i<30; i++) {
+        const conf = document.createElement('div');
+        conf.innerHTML = "🎉";
+        conf.style.position = 'fixed';
+        conf.style.left = Math.random()*100 + 'vw';
+        conf.style.top = '-10px';
+        conf.style.animation = `fall ${Math.random()*2+2}s linear`;
+        document.body.appendChild(conf);
+    }
 }

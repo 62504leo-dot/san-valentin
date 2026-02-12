@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Para ti 💌</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -16,7 +16,7 @@
             <div id="tapText">Tócame 👆</div>
         </div>
 
-        <div id="letter">
+        <div id="letter" class="letter-closed">
             <h2>Para mi niña hermosa 💖</h2>
             <p>
                 Desde que llegaste a mi vida todo cambió.
@@ -26,11 +26,14 @@
             <h3>¿Quieres ser mi San Valentín? 💘</h3>
             <div class="buttons">
                 <button id="yes" onclick="acceptLove()">¡SÍ! 😍</button>
-                <button id="no" onmouseover="moveNo()" onclick="moveNo()">No 😅</button>
+                <button id="no" onmouseover="moveNo()" ontouchstart="moveNo()">No 😅</button>
             </div>
         </div>
 
-        <div id="roseSection">
+        <div id="garden-scene">
+            
+            <div id="fox">🦊</div>
+
             <svg id="rose" viewBox="0 0 300 350">
                 <path d="M150 350 Q160 260 150 200" stroke="#2e8b57" stroke-width="6" fill="none"/>
                 <path class="leaf" d="M150 250 Q110 230 130 270 Q140 260 150 250" fill="#3cb371"/>
@@ -41,14 +44,29 @@
                 <path class="petal" d="M150 140 C230 160 180 250 150 230 C120 250 70 160 150 140" fill="#ff85c1"/>
             </svg>
             
-            <div id="final">
-                <h1>¡TE AMO! ❤️</h1>
-                <div id="firma">
-                    Oficialmente somos San Valentín 💖<br>
-                    <span style="font-size: 0.8em;">Atte: Christian Patricio ✍️</span>
+            <div id="final-container">
+                
+                <div id="input-step">
+                    <p class="instruction">El zorro ha hecho florecer la rosa para ti 🌹</p>
+                    <p>Escribe tu nombre para aceptar:</p>
+                    <input type="text" id="herName" placeholder="Tu nombre aquí..." autocomplete="off">
+                    <br>
+                    <button class="sign-btn" onclick="signContract()">Firmar ❤️</button>
                 </div>
-                <img src="cinnamoroll.webp" alt="Cinnamoroll" class="final-img">
+
+                <div id="result-step">
+                    <h1>¡TE AMO! ❤️</h1>
+                    <div class="contract-paper">
+                        <p>Oficialmente San Valentín:</p>
+                        <h2 id="herNameDisplay" class="handwritten">Ella</h2>
+                        <p>&</p>
+                        <h2 class="handwritten">Christian Patricio</h2>
+                        <p class="date">✨ Por más 14 juntos ✨</p>
+                    </div>
+                    <img src="Cinnamoroll.webp" alt="Cinnamoroll" class="final-img">
+                </div>
             </div>
+
         </div>
 
     </div>
