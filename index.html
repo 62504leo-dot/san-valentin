@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Para Mi Amor 💖</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="hearts-container"></div>
+
+<!-- SOBRE -->
+<div class="envelope" onclick="openLetter()">
+    <div class="flap"></div>
+    <div class="body"></div>
+</div>
+
+<!-- CARTA PRINCIPAL -->
+<div class="letter hidden" id="letter">
+    <h2>Para mi niña hermosa 💕</h2>
+    <p>
+        Desde que llegaste a mi vida todo cambió.  
+        Eres mi felicidad diaria, mi paz y mi persona favorita.  
+        No quiero pasar ningún 14 de febrero sin ti…
+    </p>
+
+    <h3>¿Quieres ser mi San Valentín? 💘</h3>
+
+    <div class="buttons">
+        <button id="yes" onclick="acceptLove()">Sí 💖</button>
+        <button id="no" onmouseover="moveNo()">No 😅</button>
+    </div>
+</div>
+
+<!-- CARTA FINAL -->
+<div class="letter hidden" id="finalLetter">
+    <h2>Contrato de Amor 💌</h2>
+    <p>Firma aquí para aceptar ser oficialmente tu san San Valentín:</p>
+    <input type="text" placeholder="Firma aquí..." id="signature">
+    <br><br>
+    <button onclick="confirmLove()">Confirmar 💍</button>
+</div>
+
+<!-- MENSAJE FINAL -->
+<div id="finalMessage" class="hidden">
+    <h1>TE AMO ❤️</h1>
+    <p>Gracias por hacerme el más feliz del mundo.</p>
+    <img src="img/cinnamoroll.png" width="250">
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
