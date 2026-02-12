@@ -1,19 +1,19 @@
-/* 1. ABRIR CARTA */
+/* 1. ABRIR SOBRE */
 function openLetter() {
     const flap = document.getElementById('flap');
     const letter = document.getElementById('letter');
     
-    // Abre el sobre
+    // Girar la solapa
     flap.style.transform = "rotateX(180deg)";
     
-    // Espera un poco y saca la carta hacia arriba
+    // Esperar medio segundo y sacar la carta
     setTimeout(() => {
         letter.classList.remove('letter-closed');
         letter.classList.add('letter-open');
-    }, 400);
+    }, 500);
 }
 
-/* 2. BOTÓN "NO" SE ESCAPA */
+/* 2. BOTÓN "NO" */
 function moveNo() {
     const btn = document.getElementById('no');
     const x = Math.random() * (window.innerWidth - 100);
@@ -23,7 +23,7 @@ function moveNo() {
     btn.style.top = y + 'px';
 }
 
-/* 3. ACEPTAR (SECUENCIA) */
+/* 3. ACEPTAR Y MOSTRAR JARDÍN */
 function acceptLove() {
     const letter = document.getElementById('letter');
     const envelope = document.getElementById('envelope');
@@ -31,24 +31,23 @@ function acceptLove() {
     const fox = document.getElementById('fox');
     const rose = document.getElementById('rose');
 
-    // Quemar carta
+    // Quemar la carta
     letter.classList.add('burning');
     
     setTimeout(() => {
-        // Limpiar pantalla
-        envelope.style.opacity = '0';
-        letter.style.display = 'none';
+        // Ocultar sobre y carta
         envelope.style.display = 'none';
+        letter.style.display = 'none';
         
-        // Mostrar escenario
+        // Mostrar escenario vacío
         garden.style.display = 'block';
         rose.style.opacity = '1';
 
-        // Mover Zorro
+        // Mover al zorro
         const center = window.innerWidth / 2 - 40; 
         fox.style.left = center + 'px';
 
-        // Esperar al zorro para florecer
+        // Esperar a que llegue el zorro para florecer
         setTimeout(() => {
             bloomRose();
         }, 3000);
@@ -56,45 +55,46 @@ function acceptLove() {
     }, 1500); 
 }
 
-/* 4. FLORECER ROSA Y MOSTRAR INPUT */
+/* 4. FLORECER Y PEDIR FIRMA */
 function bloomRose() {
     const petals = document.querySelectorAll('.petal');
     const leaves = document.querySelectorAll('.leaf');
     const finalContainer = document.getElementById('final-container');
+    const inputStep = document.getElementById('input-step');
+    const resultStep = document.getElementById('result-step');
 
-    // Animación flor
+    // Animación de la rosa
     petals.forEach((p, i) => {
         setTimeout(() => { p.style.transform = "scale(1)"; }, i * 300);
     });
     leaves.forEach(l => l.style.opacity = "1");
 
-    // MOSTRAR SOLO EL INPUT (Paso A)
+    // Mostrar contenedor del formulario
     setTimeout(() => {
         finalContainer.style.display = 'block';
-        // Aseguramos que el resultado siga oculto
-        document.getElementById('input-step').style.display = 'block';
-        document.getElementById('result-step').style.display = 'none';
+        inputStep.style.display = 'block'; // Asegurar que se ve el input
+        resultStep.style.display = 'none'; // Asegurar que NO se ve el final
     }, 2000);
 }
 
-/* 5. FIRMAR Y MOSTRAR FINAL (Paso B) */
+/* 5. FIRMAR Y MOSTRAR FINAL */
 function signContract() {
     const nameInput = document.getElementById('herName').value;
-    const step1 = document.getElementById('input-step');
-    const step2 = document.getElementById('result-step');
+    const inputStep = document.getElementById('input-step');
+    const resultStep = document.getElementById('result-step');
     const nameDisplay = document.getElementById('herNameDisplay');
 
     if(nameInput.trim() === "") {
-        alert("¡Escribe tu nombre hermoso! 💖");
+        alert("¡Escribe tu nombre bonito! 💖");
         return;
     }
 
-    // Poner nombre
+    // Poner el nombre en el contrato
     nameDisplay.innerText = nameInput;
 
-    // MAGIA: Ocultar input y mostrar resultado
-    step1.style.display = 'none'; // Adiós input
-    step2.style.display = 'block'; // Hola final
+    // INTERCAMBIAR PANTALLAS
+    inputStep.style.display = 'none'; // Ocultar input
+    resultStep.style.display = 'block'; // Mostrar resultado
 
     launchConfetti();
 }
