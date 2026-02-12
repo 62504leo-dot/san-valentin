@@ -87,40 +87,38 @@ button {
     border: none;
     cursor: pointer;
     font-size: 16px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 #yes { background: #ff4da6; color: white; font-weight: bold; }
 #no { background: #ccc; position: absolute; transition: 0.2s; }
 
-/* --- EFECTO FUEGO (INCENDIARSE) --- */
+/* --- EFECTO FUEGO --- */
 .burning {
     animation: burnUp 1.5s forwards;
 }
 @keyframes burnUp {
     0% { filter: contrast(100%); transform: scale(1); opacity: 1; }
-    50% { filter: contrast(200%) brightness(150%) sepia(100%) hue-rotate(-30deg); background: #ffcc00; }
     100% { filter: blur(10px); transform: scale(0.8) translateY(-100px); opacity: 0; }
 }
 
-/* --- ESCENA DEL JARDIN --- */
+/* --- JARDIN --- */
 #garden-scene {
-    display: none; /* Se activa con JS */
+    display: none;
     position: absolute;
     width: 100%;
     height: 100%;
     top: 0; left: 0;
 }
 
-/* El Zorro */
 #fox {
     font-size: 60px;
     position: absolute;
     bottom: 20%;
-    left: -100px; /* Empieza fuera */
-    transition: left 3s linear; /* Camina en 3 segundos */
+    left: -100px;
+    transition: left 3s linear;
     z-index: 40;
 }
 
-/* La Rosa */
 #rose {
     width: 150px;
     position: absolute;
@@ -128,7 +126,7 @@ button {
     left: 50%;
     transform: translateX(-50%);
     z-index: 35;
-    opacity: 0; /* Empieza invisible hasta que llega el zorro */
+    opacity: 0;
     transition: opacity 1s;
 }
 .petal { transform: scale(0); transform-origin: center; transition: 1.5s; }
@@ -136,39 +134,44 @@ button {
 
 /* --- FINAL E INPUTS --- */
 #final-container {
-    display: none;
+    display: none; /* Se activa con JS */
     position: absolute;
-    top: 15%;
+    top: 10%; /* Lo subí un poco para que no tape la rosa */
     width: 100%;
     z-index: 50;
 }
 
 #input-step {
-    background: rgba(255,255,255,0.9);
+    background: rgba(255, 255, 255, 0.95); /* Fondo blanco semi-transparente para que se lea bien */
     padding: 20px;
     border-radius: 15px;
     width: 80%;
     margin: 0 auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
+
 #herName {
-    padding: 8px;
+    padding: 10px;
     border: 2px solid #ff4da6;
     border-radius: 8px;
     width: 70%;
     text-align: center;
+    font-size: 16px;
 }
-.sign-btn { background: #ff0066; color: white; margin-top: 10px; }
+.sign-btn { background: #ff0066; color: white; margin-top: 15px; font-weight: bold; }
 
+/* Resultado final */
 #result-step {
-    display: none;
-    animation: popIn 0.5s ease;
+    /* El display:none está en el HTML para asegurar */
+    animation: popIn 0.8s ease;
 }
 .contract-paper {
-    background: #fff0f5;
-    padding: 15px;
-    border: 3px dashed #ff4da6;
-    margin: 10px 20px;
+    background: #fff;
+    padding: 20px;
+    border: 2px dashed #ff4da6;
+    margin: 10px auto;
     border-radius: 10px;
+    width: 80%;
 }
 .handwritten {
     font-family: 'Brush Script MT', cursive;
@@ -177,13 +180,16 @@ button {
     margin: 5px 0;
 }
 .final-img {
-    width: 160px;
+    width: 150px;
     margin-top: 10px;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(255,77,166,0.3);
+    animation: float 3s ease-in-out infinite;
 }
-
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
 @keyframes popIn {
-    from { transform: scale(0); }
-    to { transform: scale(1); }
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
 }

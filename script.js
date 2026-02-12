@@ -3,10 +3,8 @@ function openLetter() {
     const flap = document.getElementById('flap');
     const letter = document.getElementById('letter');
     
-    // Abre el sobre
     flap.style.transform = "rotateX(180deg)";
     
-    // Saca la carta con un pequeño retraso
     setTimeout(() => {
         letter.classList.remove('letter-closed');
         letter.classList.add('letter-open');
@@ -16,16 +14,14 @@ function openLetter() {
 /* 2. BOTÓN "NO" SE ESCAPA */
 function moveNo() {
     const btn = document.getElementById('no');
-    // Genera posición aleatoria dentro de la ventana
     const x = Math.random() * (window.innerWidth - 100);
     const y = Math.random() * (window.innerHeight - 100);
-    
     btn.style.position = 'fixed';
     btn.style.left = x + 'px';
     btn.style.top = y + 'px';
 }
 
-/* 3. ACEPTAR (SECUENCIA COMPLETA) */
+/* 3. ACEPTAR (SECUENCIA) */
 function acceptLove() {
     const letter = document.getElementById('letter');
     const envelope = document.getElementById('envelope');
@@ -33,55 +29,52 @@ function acceptLove() {
     const fox = document.getElementById('fox');
     const rose = document.getElementById('rose');
 
-    // A. Incendiar carta
+    // Quemar carta
     letter.classList.add('burning');
     
-    // Ocultar sobre suavemente
     setTimeout(() => {
+        // Limpiar pantalla
         envelope.style.opacity = '0';
         letter.style.display = 'none';
         envelope.style.display = 'none';
         
-        // B. Mostrar jardín y Zorro
+        // Mostrar escenario
         garden.style.display = 'block';
-        rose.style.opacity = '1'; // Mostrar la rosa (aún cerrada)
+        rose.style.opacity = '1';
 
-        // C. Mover al zorro hacia el centro
-        // Calculamos el centro de la pantalla
-        const center = window.innerWidth / 2 - 40; // Ajuste por tamaño del emoji
+        // Mover Zorro
+        const center = window.innerWidth / 2 - 40; 
         fox.style.left = center + 'px';
 
-        // D. Esperar a que el zorro llegue (3 segundos) para florecer
+        // Esperar al zorro para florecer
         setTimeout(() => {
             bloomRose();
         }, 3000);
 
-    }, 1500); // Tiempo que tarda en quemarse
+    }, 1500); 
 }
 
-/* 4. FLORECER ROSA */
+/* 4. FLORECER ROSA Y MOSTRAR INPUT */
 function bloomRose() {
     const petals = document.querySelectorAll('.petal');
     const leaves = document.querySelectorAll('.leaf');
-    const inputContainer = document.getElementById('final-container');
+    const finalContainer = document.getElementById('final-container');
 
-    // Animación pétalos
+    // Animación flor
     petals.forEach((p, i) => {
-        setTimeout(() => {
-            p.style.transform = "scale(1)";
-        }, i * 300);
+        setTimeout(() => { p.style.transform = "scale(1)"; }, i * 300);
     });
-
-    // Animación hojas
     leaves.forEach(l => l.style.opacity = "1");
 
-    // E. Mostrar input para firmar
+    // MOSTRAR SOLO EL INPUT (Paso A)
     setTimeout(() => {
-        inputContainer.style.display = 'block';
+        finalContainer.style.display = 'block';
+        // Aseguramos que el resultado siga oculto por si acaso
+        document.getElementById('result-step').style.display = 'none';
     }, 2000);
 }
 
-/* 5. FIRMAR Y MOSTRAR FINAL */
+/* 5. FIRMAR Y MOSTRAR FINAL (Paso B) */
 function signContract() {
     const nameInput = document.getElementById('herName').value;
     const step1 = document.getElementById('input-step');
@@ -89,26 +82,28 @@ function signContract() {
     const nameDisplay = document.getElementById('herNameDisplay');
 
     if(nameInput.trim() === "") {
-        alert("¡Por favor firma el pacto! 💖");
+        alert("¡Escribe tu nombre hermoso! 💖");
         return;
     }
 
-    // Guardar nombre y cambiar pantalla
+    // Poner nombre
     nameDisplay.innerText = nameInput;
-    step1.style.display = 'none';
-    step2.style.display = 'block';
 
-    // Lanzar confeti (opcional, simple con emojis)
+    // MAGIA: Ocultar input y mostrar resultado
+    step1.style.display = 'none'; // Adiós input
+    step2.style.display = 'block'; // Hola final
+
     launchConfetti();
 }
 
 function launchConfetti() {
-    for(let i=0; i<30; i++) {
+    for(let i=0; i<50; i++) {
         const conf = document.createElement('div');
-        conf.innerHTML = "🎉";
+        conf.innerHTML = ["❤️","🌹","✨"][Math.floor(Math.random()*3)];
         conf.style.position = 'fixed';
         conf.style.left = Math.random()*100 + 'vw';
         conf.style.top = '-10px';
+        conf.style.fontSize = Math.random()*20 + 10 + 'px';
         conf.style.animation = `fall ${Math.random()*2+2}s linear`;
         document.body.appendChild(conf);
     }
